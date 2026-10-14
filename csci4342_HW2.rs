@@ -11,7 +11,13 @@ fn main() {
 }
 
 fn load_daignostics(file_name: &String){
-   let contents = fs::read_to_string(file_name).expect("file doesnt exist.");
+   // AI was used to help me figure out the syntax of how to put the file contents in a vector of string
+   let contents: Vec<String> = fs::read_to_string(file_name).expect("file doesnt exist.").lines().map(String::from).collect(); 
+   //.lines().collect();
+   //.expect("file doesnt exist.")
 
-   println!("{contents}");
+   dbg!(&contents);
+   let num = &contents[0];
+   println!("{num}");
+   
 }
