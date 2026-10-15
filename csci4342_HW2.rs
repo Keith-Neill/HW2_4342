@@ -7,17 +7,16 @@ fn main() {
    let file_name = &args[1];
    println!("{file_name}");
 
-   load_daignostics(file_name);
-}
-
-fn load_daignostics(file_name: &String){
-   // AI was used to help me figure out the syntax of how to put the file contents in a vector of string
-   let contents: Vec<String> = fs::read_to_string(file_name).expect("file doesnt exist.").lines().map(String::from).collect(); 
-   //.lines().collect();
-   //.expect("file doesnt exist.")
-
+   let contents: Vec<String> = load_daignostics(file_name);
    dbg!(&contents);
    let num = &contents[0];
    println!("{num}");
+}
+
+// read the contents of the diagnostics report into a vector of strings
+fn load_daignostics(file_name: &String) -> Vec<String>{
+
+   fs::read_to_string(file_name).expect("file doesnt exist.").lines().map(String::from).collect() 
+  
    
 }
