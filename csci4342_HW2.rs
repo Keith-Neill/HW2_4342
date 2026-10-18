@@ -7,16 +7,30 @@ fn main() {
    let file_name = &args[1];
    println!("{file_name}");
 
-   let contents: Vec<String> = load_daignostics(file_name);
-   dbg!(&contents);
-   let num = &contents[0];
-   println!("{num}");
+   let diagnostics_report_values: Vec<String> = load_daignostics(file_name);
+   check_life_support(diagnostics_report_values);
+
+   let s: &str = "Hello";
+   println!("{s}");
+   let nth_char = &s[0..2];
+   println!("{nth_char}");
+
 }
 
 // read the contents of the diagnostics report into a vector of strings
 fn load_daignostics(file_name: &String) -> Vec<String>{
 
    fs::read_to_string(file_name).expect("file doesnt exist.").lines().map(String::from).collect() 
-  
    
+}
+
+// this function checks the life support
+fn check_life_support(diagnostics_report_values: Vec<String>){
+
+   dbg!(&diagnostics_report_values);
+   let num = &diagnostics_report_values[0];
+   println!("{num}");
+
+   
+
 }
