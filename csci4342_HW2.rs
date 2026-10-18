@@ -31,6 +31,19 @@ fn check_life_support(diagnostics_report_values: Vec<String>){
    let num = &diagnostics_report_values[0];
    println!("{num}");
 
-   
+   let mut _values_with_ones_as_current_bit: Vec<String> = Vec::new();
+   let mut _values_with_zeros_as_current_bit: Vec<String> = Vec::new();
+   //for i in 0..&diagnostics_report_values[0].len(){
+      for value in diagnostics_report_values{
+        if &value[0..(0+1)] == "1"{
+            _values_with_ones_as_current_bit.push(value);
+        } 
+
+
+      }
+      dbg!(&_values_with_ones_as_current_bit);
+      _values_with_ones_as_current_bit.clear();
+      dbg!(&_values_with_ones_as_current_bit);
+   //}
 
 }
