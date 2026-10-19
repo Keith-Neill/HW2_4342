@@ -27,23 +27,38 @@ fn load_daignostics(file_name: &String) -> Vec<String>{
 // this function checks the life support
 fn check_life_support(diagnostics_report_values: Vec<String>){
 
-   dbg!(&diagnostics_report_values);
-   let num = &diagnostics_report_values[0];
-   println!("{num}");
-
    let mut _values_with_ones_as_current_bit: Vec<String> = Vec::new();
    let mut _values_with_zeros_as_current_bit: Vec<String> = Vec::new();
-   //for i in 0..&diagnostics_report_values[0].len(){
-      for value in diagnostics_report_values{
-        if &value[0..(0+1)] == "1"{
-            _values_with_ones_as_current_bit.push(value);
+   let mut potential_o2_rate_values: Vec<String> = diagnostics_report_values;
+   
+   let mut num_values = potential_o2_rate_values.len();
+   let j = potential_o2_rate_values[0].len() as i32;
+   //println!(j);
+
+   //while num_values >= 2{
+    for i in 0..potential_o2_rate_values[0].len() as i32{
+      for value in potential_o2_rate_values{
+        if &value[i as usize..(i+1) as usize] == "1"{
+            _values_with_ones_as_current_bit.push(value.to_string());
+        }
+        else{
+         _values_with_zeros_as_current_bit.push(value.to_string());
         } 
 
 
       }
-      dbg!(&_values_with_ones_as_current_bit);
+      
+
+      if _values_with_ones_as_current_bit.len() >= _values_with_zeros_as_current_bit.len(){
+         potential_o2_rate_values = _values_with_ones_as_current_bit.clone();
+      }
+      else{
+         potential_o2_rate_values = _values_with_zeros_as_current_bit.clone();
+      }
+      num_values = potential_o2_rate_values.len();
       _values_with_ones_as_current_bit.clear();
-      dbg!(&_values_with_ones_as_current_bit);
-   //}
+      _values_with_zeros_as_current_bit.clear();
+   }
+   dbg!(&potential_o2_rate_values);
 
 }
