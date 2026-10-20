@@ -1,6 +1,9 @@
 /* 
 Student Name: Keith Neill
-Program Description:
+Program Description: This program calculates the life support rate from binary numbers given in a diagnostics report file. 
+                     This program reads a diagnostics report file into a vector of strings. 
+                     It then takes the values from the diagnostics report file and calculates the O2 generator rating and the CO2 scrubber rating. 
+                     The program then multiplies the O2 generator rating and the CO2 scrubber rating to get the life support rating. 
 Date: 10/24/2026
 */
 
