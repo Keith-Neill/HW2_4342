@@ -6,6 +6,7 @@ Date: 10/24/2026
 
 use std::env;
 use std::fs;
+use std::process;
 
 
 fn main() {
@@ -51,7 +52,11 @@ fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32)
 
       // sort the values with 0 and 1 as current bit into seperate vectors
       for value in potential_o2_generator_rating_values{
-        if &value[i as usize..(i+1) as usize] == "1"{
+         if &value[i as usize..(i+1) as usize] != "1" || &value[i as usize..(i+1) as usize] != "0"{
+            eprintln!("Error: One of the values in this file is not a binary number.");
+            process::exit(1);
+        }
+        else if &value[i as usize..(i+1) as usize] == "1"{
             _values_with_ones_as_current_bit.push(value.to_string());
         }
         else{
@@ -112,13 +117,15 @@ fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32)
          break
       }
    }
-   let o2_generator_rating = i32::from_str_radix(&potential_o2_generator_rating_values[0], 2).unwrap();
 
+   // convert the binary strings into 32-bit integers
+   let o2_generator_rating = i32::from_str_radix(&potential_o2_generator_rating_values[0], 2).unwrap();
    let co2_scrubber_rating = i32::from_str_radix(&potential_co2_scrubber_rating_values[0],2).unwrap();
 
+   // calculate life support rating by multiplying the int values of the o2 generator rating and the co2 scrubber rating
    let life_support_rating = o2_generator_rating * co2_scrubber_rating;
    
-
+   // put the integer values into a tuple and return to main()
    (o2_generator_rating, co2_scrubber_rating, life_support_rating)
 
 }
