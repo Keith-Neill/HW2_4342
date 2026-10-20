@@ -52,7 +52,7 @@ fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32)
 
       // sort the values with 0 and 1 as current bit into seperate vectors
       for value in potential_o2_generator_rating_values{
-         if &value[i as usize..(i+1) as usize] != "1" || &value[i as usize..(i+1) as usize] != "0"{
+         if &value[i as usize..(i+1) as usize] != "1" && &value[i as usize..(i+1) as usize] != "0"{
             eprintln!("Error: One of the values in this file is not a binary number.");
             process::exit(1);
         }
