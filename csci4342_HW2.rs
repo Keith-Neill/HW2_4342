@@ -36,6 +36,19 @@ fn load_daignostics(file_name: &String) -> Vec<String>{
 // this function checks the life support rating
 fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32){
 
+   let j = diagnostics_report_values[0].len() as i32;
+   
+   // make sure that all of the values in diagnostics report file are actually binary numbers before continuing
+   for value in diagnostics_report_values.clone(){
+      for i in 0..j{
+         if &value[i as usize..(i+1) as usize] != "1" && &value[i as usize..(i+1) as usize] != "0"{
+            eprintln!("Error: One of the values in this file is not a binary number.");
+            process::exit(1);
+        }
+      }
+   }
+
+
    let mut _values_with_ones_as_current_bit: Vec<String> = Vec::new();
    let mut _values_with_zeros_as_current_bit: Vec<String> = Vec::new();
    
@@ -44,19 +57,14 @@ fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32)
    let mut potential_co2_scrubber_rating_values: Vec<String> = diagnostics_report_values.clone();
 
    // length of the values
-   let j = potential_o2_generator_rating_values[0].len() as i32;
-   
+   //let j = potential_o2_generator_rating_values[0].len() as i32;
 
    // figure out 02 generator rating
    for i in 0..j as i32{
 
       // sort the values with 0 and 1 as current bit into seperate vectors
       for value in potential_o2_generator_rating_values{
-         if &value[i as usize..(i+1) as usize] != "1" && &value[i as usize..(i+1) as usize] != "0"{
-            eprintln!("Error: One of the values in this file is not a binary number.");
-            process::exit(1);
-        }
-        else if &value[i as usize..(i+1) as usize] == "1"{
+        if &value[i as usize..(i+1) as usize] == "1"{
             _values_with_ones_as_current_bit.push(value.to_string());
         }
         else{
