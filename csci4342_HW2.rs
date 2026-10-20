@@ -8,8 +8,11 @@ fn main() {
    let file_name = &args[1];
 
    let diagnostics_report_values: Vec<String> = load_daignostics(file_name);
-   check_life_support(diagnostics_report_values);
+   let (o2_rating, co2_rating, life_support) = check_life_support(diagnostics_report_values);
 
+   println!("o2 {}", o2_rating);
+   println!("co2 {}", co2_rating);
+   println!("life support {}", life_support);
 
 }
 
@@ -21,7 +24,7 @@ fn load_daignostics(file_name: &String) -> Vec<String>{
 }
 
 // this function checks the life support
-fn check_life_support(diagnostics_report_values: Vec<String>){
+fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32){
 
    let mut _values_with_ones_as_current_bit: Vec<String> = Vec::new();
    let mut _values_with_zeros_as_current_bit: Vec<String> = Vec::new();
@@ -79,7 +82,13 @@ fn check_life_support(diagnostics_report_values: Vec<String>){
       }
 
       // add values with least common bits to potential co2 rate vector
-      if (_values_with_zeros_as_current_bit.len() <= _values_with_ones_as_current_bit.len()) || (_values_with_ones_as_current_bit.len() == 0){
+      if _values_with_ones_as_current_bit.len() == 0{
+         potential_co2_rate_values = _values_with_zeros_as_current_bit.clone();
+      }
+      else if _values_with_zeros_as_current_bit.len() == 0{
+         potential_co2_rate_values = _values_with_ones_as_current_bit.clone();
+      }
+      else if _values_with_zeros_as_current_bit.len() <= _values_with_ones_as_current_bit.len(){
          potential_co2_rate_values = _values_with_zeros_as_current_bit.clone();
       }
       else{
@@ -94,36 +103,13 @@ fn check_life_support(diagnostics_report_values: Vec<String>){
          break
       }
    }
-   let o2_rating: &String = &potential_o2_rate_values[0];
-   println!("{o2_rating}");
+   let o2_rating = i32::from_str_radix(&potential_o2_rate_values[0], 2).unwrap();
 
-   let co2_rating: &String = &potential_co2_rate_values[0];
-   println!("{co2_rating}");
-   //let co2_rating: &String = &potential_co2_rate_values[0];
+   let co2_rating = i32::from_str_radix(&potential_co2_rate_values[0],2).unwrap();
+
+   let life_support_rating = o2_rating * co2_rating;
    
 
+   (o2_rating, co2_rating, life_support_rating)
+
 }
-
-/*fn calculate_co2_rating(potential_co2_rate_values: Vec<String>, i: i32) -> Vec<String>{
-   let _values_with_ones_as_current_bit: Vec<String> = Vec::new();
-   let _values_with_zeros_as_current_bit: Vec<String> = Vec::new();
-
-   for value in potential_co2_rate_values{
-      if &value[i as usize..(i+1) as usize] == "1"{
-         _values_with_ones_as_current_bit.push(value.to_string());
-      }
-      else{
-         _values_with_zeros_as_current_bit.push(value.to_string());
-      } 
-   }
-
-   if _values_with_zeros_as_current_bit.len() <= _values_with_ones_as_current_bit.len(){
-      potential_co2_rate_values = _values_with_zeros_as_current_bit.clone();
-   }
-   else{
-      potential_co2_rate_values = _values_with_ones_as_current_bit.clone();
-   }
-
-   potential_co2_rate_values
-
-}*/
