@@ -14,15 +14,16 @@ fn main() {
    let args: Vec<String> = env::args().collect();
    let file_name = &args[1];
 
+   println!("Loading diagnostics...");
    // get the diagnostics report values from the file
    let diagnostics_report_values: Vec<String> = load_daignostics(file_name);
 
    // get the O2 generator rating, the CO2 scrubber rating, and the life support rating
    let (o2_generator_rating, co2_scrubber_rating, life_support) = check_life_support(diagnostics_report_values);
 
-   println!("o2 {}", o2_generator_rating);
-   println!("co2 {}", co2_scrubber_rating);
-   println!("life support {}", life_support);
+   println!("O2 generator rating: {}", o2_generator_rating);
+   println!("CO2 scrubber rating: {}", co2_scrubber_rating);
+   println!("Life support rating: {}", life_support);
 
 }
 
@@ -42,7 +43,7 @@ fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32)
    for value in diagnostics_report_values.clone(){
       for i in 0..j{
          if &value[i as usize..(i+1) as usize] != "1" && &value[i as usize..(i+1) as usize] != "0"{
-            eprintln!("Error: One of the values in this file is not a binary number.");
+            eprintln!("Error: One of the values in the diagnostics report file is not a binary number.");
             process::exit(1);
         }
       }
