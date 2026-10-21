@@ -4,7 +4,7 @@ Program Description: This program calculates the life support rate from binary n
                      This program reads a diagnostics report file into a vector of strings. 
                      It then takes the values from the diagnostics report file and calculates the O2 generator rating and the CO2 scrubber rating. 
                      The program then multiplies the O2 generator rating and the CO2 scrubber rating to get the life support rating. 
-Date: 10/24/2026
+Date: 10/20/2026
 */
 
 use std::env;
@@ -60,8 +60,6 @@ fn check_life_support(diagnostics_report_values: Vec<String>) -> (i32, i32, i32)
    let mut potential_o2_generator_rating_values: Vec<String> = diagnostics_report_values.clone();
    let mut potential_co2_scrubber_rating_values: Vec<String> = diagnostics_report_values.clone();
 
-   // length of the values
-   //let j = potential_o2_generator_rating_values[0].len() as i32;
 
    // figure out 02 generator rating
    for i in 0..j as i32{
